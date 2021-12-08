@@ -1,5 +1,3 @@
-
-
 #include "LegoPupColorDistance.h"
 
 LegoPupColorDistance::LegoPupColorDistance(void){
@@ -222,7 +220,7 @@ void LegoPupColorDistance::Process(void){
 		while((currenttime-starttime) < 2000){
 			if (Serial.available() > 0) {
 				// read the incoming byte
-				unsigned char dat = Serial.read();
+				unsigned uint8 dat = Serial.read();
 				if (dat == 0x04){
 					//DbgSerial.println("Connection Espablished !");
 					Serial.begin(115200);
@@ -242,7 +240,7 @@ void LegoPupColorDistance::Process(void){
 		// Connection established
 		//------------------------------------------------------
 		if (Serial.available() > 0) {
-			unsigned char dat;
+			unsigned uint8 dat;
 			dat = Serial.read();
 			if(dat == 0x02){
 				//DbgSerial.println("Received NACK from the Hub");
@@ -252,7 +250,7 @@ void LegoPupColorDistance::Process(void){
 				_txBuf[0] = 0x46;					// header
 				_txBuf[1] = 0x08;					// value
 				_txBuf[2] = calcChecksum(_txBuf,2);	// checksum
-				Serial.write((char*)_txBuf, 3);
+				Serial.write((uint8*)_txBuf, 3);
 				Serial.flush();
 
 				//Send dummy data
@@ -262,7 +260,7 @@ void LegoPupColorDistance::Process(void){
 				_txBuf[3] = 0xFF;					// value3
 				_txBuf[4] = 0x03;					// value4
 				_txBuf[5] = calcChecksum(_txBuf,5);	// checksum
-				Serial.write((char*)_txBuf, 6);
+				Serial.write((uint8*)_txBuf, 6);
 				Serial.flush();
 				delay(50);
 			}
